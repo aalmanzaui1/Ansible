@@ -1,0 +1,31 @@
+- Implementar servidor apache
+- implementar el servidor apache con el usuario ansible
+- ansible necesitara permisos sudo
+- conexion ssh
+- permitir gather facts
+- Informacion necesaria
+  - paquete apache
+  - distribucion en ejecucion
+  - version apache
+  - directorio del servidor customizado
+  - nombre del sitio
+- tareas:
+  - Instalar servidor apache
+  - crear el directorio del servidor web
+  - permisos y propietario del directorio correcto
+  - informacion de configuracion
+    - copiar el archivo de configuracion httpd
+    - establecer el vhosts
+    - aniadir llaves ssl si son necesarias
+    - aniadir la plantilla vhost para el sitio por defecto 
+  - copiar el codigo del sitio en un directorio nuevo
+  - iniciar servicio apache
+  - habilitar / aniadir  modulos
+    - mysql / mariadb
+    - ssl
+    - mod rewrite
+  - reiniciar apache server
+- Test
+  - utilizar lynx o telnet para probar el servicio web
+  - esperar puerto 80 en modo escucha
+  - registrar la implementacion 

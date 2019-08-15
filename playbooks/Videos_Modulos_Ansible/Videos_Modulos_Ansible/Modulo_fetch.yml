@@ -1,0 +1,13 @@
+--- # el modulo fetch permite coger archivos del orgien y traerlos
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  tasks:
+  - name: Copiar archivo desde el origen
+    fetch: src=/etc/hosts dest=/home/ansible/hosts-almanza2
+  - name: copiar archivo con otro formato
+    fetch: src=/etc/hosts dest=/home/ansible/prefix-{{ ansible_hostname }} flat=yes
+# de la primera forma de la tarea, creara una carpeta con el nombre de hosts y copiara el fichero con el full path dentro
+# de la segunda manera solo creara el fichero con el prefijo dado y dentro copiara el contenido del fichero origen

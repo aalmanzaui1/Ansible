@@ -1,0 +1,12 @@
+--- # manejo de errores
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Ejecutar un comando que falle
+    command: /bin/false
+    ignore_errors: yes
+  - name: Instalar telnet
+    yum: name=telnet state=latest

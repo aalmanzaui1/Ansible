@@ -1,0 +1,16 @@
+--- # instalar appserver
+- hosts: appserver
+  remote_user: ansible
+  become: yes
+  become_method: sudo 
+  vars:
+    control_server: localhost
+    web_root: /var/www/html
+  vars_files:
+  - vars.yaml
+  tasks:
+  - name: Instalar Lynx en appserver
+    yum: 
+      name: lynx 
+      state: installed 
+      update_cache: true

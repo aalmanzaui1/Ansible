@@ -1,0 +1,30 @@
+ServerName {{ dominio }}
+
+ProxyPreserveHost On
+ProxyRequests Off
+
+ProxyPass /{{ app  }} ajp://localhost:8009/{{ app }}
+ProxyPassReverse /{{ app }} ajp://localhost:8009/{{ app }}
+
+RewriteEngine On
+RewriteRule ^/$ "http://{{ dominio }}/{{ app  }}" [L]
+
+ErrorLog /var/log/httpd/{{ app }}.log
+CustomLog /var/log/httpd/{{ app }}.log combined env=!xclient
+
+
+ServerName localhost
+
+ProxyPreserveHost On
+ProxyRequests Off
+DirectoryIndex index.html
+
+ProxyPass / ajp://localhost:8009/sample/
+ProxyPassReverse / ajp://localhost:8009/sample/
+
+RewriteEngine On
+#RewriteRule ^/$ "http://almanza-tomcat.int/index.html" [L]
+#RewriteRule ^/$ "http://localhost/index.html" [L]
+
+ErrorLog /var/log/httpd/sample.log
+CustomLog /var/log/httpd/sample.log combined env=!xclient

@@ -1,0 +1,10 @@
+--- # Modulo de interaccion con el sistema de ficheros
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: formatear una particion remota
+    # modulo
+    filesystem: fstype=ext3 dev=/dev/sdd1 

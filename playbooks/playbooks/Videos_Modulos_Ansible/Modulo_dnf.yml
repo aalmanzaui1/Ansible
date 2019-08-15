@@ -1,0 +1,10 @@
+--- # Modulo dnf
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks: 
+  - name: Instalar development tools con dnf
+    dnf: name="@Development tools" state=present
+# dnf puede instalar grupos de paquetes ya predefinidos, en este caso con las herramientas de desarrollo

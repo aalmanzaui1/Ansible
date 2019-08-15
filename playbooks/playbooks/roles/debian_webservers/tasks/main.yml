@@ -1,0 +1,4 @@
+- name: Instalar Servidor Apache
+  apt: name={{ debian_apache }} state=latest
+  when: "ansible_os_family == 'Debian'"
+  notify: Reiniciar Apache-debian

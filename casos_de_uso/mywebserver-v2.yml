@@ -1,0 +1,38 @@
+--- # Implementar servidor apache
+- hosts: apacheweb #implementar el servidor apache con el usuario ansible
+  user: ansible # ansible necesitara permisos sudo
+  become: yes
+  become_method: sudo
+  conection: ssh # Implementar conexion ssh
+  gather_facts: yes # permitir gather facts
+  vars: #- Informacion necesaria
+    pkg: httpd # paquete Apache
+    dist: "{{ ansible_os_family }}" # distribucion en ejecucion
+    apache_ver: 2.4 #version apache
+    apache_dir: /var/www/sample #directorio del servidor customizado
+    apache_fqdn: almanza2.mylabserver.com  #nombre del sitio
+  tasks: #tareas:
+    - name: Instalar servidor apache
+      yum: name={{ pkg }} state=latest
+    - name:  crear el directorio del servidor web
+      file: path={{ apache_dir }} state=directory mode=644
+    - name: copiar configuracion Apache al host remoto
+      copy: src=files/httpd.conf.template dest=/etc/httpd/conf/httpd.conf owner=root mode=644
+    - name: establecer el vhosts
+      file: path=/etc/httpd/vhost.d state=directory mode=644
+    - name: Copiar y descomprmir codigo del sitio
+      unarchive: src=files/sitecode.tar.gz dest={{apache_dir}}
+    - name: Copiar la configuracion vhost
+      copy: src=files/default.conf.template dest=/etc/httpd/vhost.d/default.conf owner=root group=root mode=644
+      notify:
+        - IniciarApache
+        - ProbarApache
+        - MostrarResultado 
+  handlers:
+    - name: IniciarApache
+      service: name={{ pkg }} state=started
+    - name: ProbarApache
+      shell: curl http://{{ apache_fqdn }}
+      register: result
+    - name: MostrarResultado
+      debug: var=result  

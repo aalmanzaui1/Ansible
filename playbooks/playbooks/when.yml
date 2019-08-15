@@ -1,0 +1,17 @@
+--- # when playbook example
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  vars:
+    playbook_type: conditionalexample
+  vars_files:
+    - conf/derechos.yaml
+    - conf/webdefaults.yaml
+  tasks:
+    - name: Instalar Apache en funcion de la distribucion (Debian/Ubuntu)
+      command: apt-get -y install apache2
+      when: ansible_os_family == "Debian"
+    - name: Instalar Apache en funcion de la distribucion (RedHat/CentOS)
+      command: yum -y install httpd
+      when: ansible_os_family == "RedHat"

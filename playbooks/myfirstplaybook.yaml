@@ -1,0 +1,25 @@
+--- # Primer YAML playbook para Ansible
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  vars:
+    playbook_version: 0.1b
+  vars_files:
+    - conf/derechos.yaml
+    - conf/webdefaults.yaml
+  vars_prompt:
+    - name: web_domain
+      prompt: Instrozduca el web domain
+    - name: pkg
+      prompt: Paquete a instalar
+  tasks:
+     - name: instalar Apache Server
+       action: yum name=httpd state=installed
+       notify: Reiniciar HTTPD
+     - name: Instalar lynx con variable
+       action: yum name={{ pkg }} state=installed
+  handlers:
+    - name: Reiniciar HTTPD
+      action: service name=httpd state=restarted

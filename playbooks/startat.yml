@@ -1,0 +1,15 @@
+--- # start at playbook example
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Instalar Telnet
+    yum: name=telnet state=latest
+  - name: Instalar Lynx
+    yum: name=lynx state=latest
+  - name: listar el home
+    command: ls -la /home/ansible
+    register: result
+  - debug: var=result

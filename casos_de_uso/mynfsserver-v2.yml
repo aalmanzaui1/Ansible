@@ -1,0 +1,57 @@
+--- # implementar servidor NFS
+- hosts: appserver 
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  vars:
+    distribution: RedHat
+    nfsutils_pkg: nfs-utils
+    nfslibs_pkg: nfs-utils-lib
+    nfsserver_service: nfs-server
+    nfslock_service: nfs-lock
+    nfsmap_service: nfs-idmap
+    rpcbind_service: rpcbind
+    export_path: /var/share
+  tasks:
+  - name: Instalar servidor NFS y sus paquetes
+    yum: name={{ item }} state=latest update_cache=yes
+    with_items:
+      - "{{ nfsutils_pkg }}"
+      #- "{{ nfslibs_pkg }}"
+      #- "{{ nfsserver_service }}"
+      #- "{{ nfslock_service }}"
+      #- "{{ nfsmap_service }}"
+      #- "{{ rpcbind_service }}"
+  - name: Copiar el archivo exports al servidor
+    copy: src=exports.template dest=/etc/exports mode=0644 owner=root group=root
+  - name: Iniciar servicios
+    service: name={{ item }} state=started
+    with_items:
+      - "{{ nfsutils_pkg }}"
+      - "{{ nfsserver_service }}"
+      - "{{ nfsmap_service }}"
+      - "{{ rpcbind_service }}"
+  - name: Instalar cliente NFS y sus paquetes en local
+    yum: name={{ item }} state=latest
+    with_items:
+      - "{{ nfsutils_pkg  }}"
+      #- "{{ nfslibs_pkg }}"
+    delegate_to: 127.0.0.1
+  - name: Iniciar servicios
+    service: name={{ item }} state=started
+    with_items:
+      - "{{ nfslock_service }}"
+      - "{{ nfsmap_service }}"
+      - "{{ rpcbind_service }}"
+    delegate_to: 127.0.0.1
+  - name: Crear el directorio de montaje en el cliente
+    file: path=/mnt/remote state=directory mode=755
+    delegate_to: 127.0.0.1
+  - name: Montar el sistema de ficheros NFS compartido en el cliente
+    shell: mount -t nfs 172.31.28.36:/var/share /mnt/remote
+    #mount: name=/mnt/remote src=almanza4.mylabserver.com:/var/share state=present fstype=nfs
+    register: result
+    delegate_to: 127.0.0.1
+  - name: Mostrar el resultado del montaje
+    debug: var=result

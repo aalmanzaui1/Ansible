@@ -1,0 +1,10 @@
+--- # Modulo mount
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Montar una unidad
+    mount: name=/mnt/data src=/dev/xvdf1 fstype=ext3 state=present
+    # tambien se puede psar opciones como rw

@@ -1,0 +1,15 @@
+--- # Modulo wait for
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Instalar apache tomcat
+    yum: name=tomcat state=latest
+  - name: Esperando al puerto 8080 en estado listening
+    wait_for: 
+      port: 8080
+      state: started
+  - name: Verificando la instalacion de Lynx
+    yum: name=lynx state=present

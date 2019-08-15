@@ -1,0 +1,42 @@
+- hosts: localhost
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  vars:
+    dominio: almanza-tomcat.int
+    app: sample
+  tasks:
+  - name: instalacion paquetes necesarios
+    yum:
+      name: '{{ item }}'
+      state: latest
+    with_items:
+      - httpd
+      - java-1.7.0-openjdk-devel
+      - tomcat
+      - tomcat-webapps
+      - tomcat-admin-webapps
+  - name: descargando aplicacion Java sample.war
+    get_url:
+      url: https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war
+      dest: /usr/share/tomcat/webapps
+      owner: tomcat
+      group: tomcat
+      mode: 0644
+  - name: corregir permisos carpeta tomcat
+    file:
+      path: /usr/share/tomcat
+      owner: tomcat
+      group: tomcat
+  - name: plantilla de configuracion apache
+    template:
+      src: apache_tomcat.j2
+      dest: /etc/httpd/conf.d/almanza-tomcat.conf
+  - name: permitir apache conexiones por red
+    shell: "/usr/sbin/setsebool -P httpd_can_network_connect 1"
+  - name: reiniciar servicios
+    service:
+      name: '{{ item }}'
+      with_items:
+        - httpd
+        - tomcat

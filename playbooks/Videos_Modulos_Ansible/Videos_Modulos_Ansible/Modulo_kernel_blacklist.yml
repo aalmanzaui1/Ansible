@@ -1,0 +1,9 @@
+--- # Modulo Blacklist intenta que el kernel no cargue modulos de terceros que puedan interrumpir con mudulos originales. /etc/modprobe.d/
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: desactivar un modulo en el inicio del sistema aniadiendolo a la blacklist
+    kernel_blacklist: name=dummy state=present

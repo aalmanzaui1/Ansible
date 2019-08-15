@@ -1,0 +1,6 @@
+--- # PLAYBOOK DE ACCION LOCAL
+- hosts: localhost
+  connection: local
+  tasks:
+  - name: instalar cliente telnet
+    yum: name=telnet state=present 

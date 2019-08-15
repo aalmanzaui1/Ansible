@@ -1,0 +1,11 @@
+--- # Modulo Apache solo funciona en distros Debian
+- hosts: aptserver
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Desabilitar el modulo alias en Apache2
+    apache2_module: name=alias state=absent
+  #- name: Desabilitar el modulo alias en Apache2
+   # apache2_module: name=alias state=present

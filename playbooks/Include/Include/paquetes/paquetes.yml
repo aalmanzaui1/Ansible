@@ -1,0 +1,5 @@
+- name: Instalar servidor Apache
+  yum: name=httpd state=latest
+  notify: reinicio_apache
+- name: Instalar navegador lynx
+  yum: name=lynx state=latest

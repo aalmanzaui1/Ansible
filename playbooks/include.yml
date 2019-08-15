@@ -1,0 +1,12 @@
+--- # inclusion de tareas
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+    - include: plays/paquetes.yml
+    - name: verificar si paquete telnet esta instalado
+      shell: rpm -qi telnet
+      register: result
+    - debug: var=result

@@ -1,0 +1,10 @@
+--- # Modulo copiar
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: copiar archivos
+    copy: src=/home/ansible/test.txt dest=/home/ansible/testcp.txt mode=644 owner=ansible group=ansible backup=yes
+# backup=yes guarda una copia si el fichero existe 

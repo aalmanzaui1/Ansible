@@ -1,0 +1,5 @@
+
+PLAY [apacheweb] ***************************************************************
+
+TASK [Instalar software solicitado] ********************************************
+ansible-playbook fromcmdline.yml --extra-vars hosts=apacheweb user=ansible pkg=telnet 

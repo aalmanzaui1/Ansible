@@ -1,0 +1,38 @@
+--- # Implementar base de datos con ansible
+- hosts: appserver
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  vars:
+    - pkg: mariadb-server
+    - pkgclient: mariadb
+    - fqdnserver: almanza4.mylabserver.com
+    - dbinstalldir: /var/lib
+    - dbinstancename: MyDBTest
+    - dbdistribution: RedHat
+    - dbversion: 5.5.44
+  tasks:
+  - name: instalar paquete
+      yum: name={{ item }} status=latest
+      with_items:
+       - " {{ pkg  }} "
+       - "´{{ pkgclien }}"
+      notify: InitServer
+  - name: IniciarServicio
+    service: name=mariadb state=started
+  - pause: prompt= "Ejecute el script de mysql_secure_installation y despues pulse enter en el playbook para continuar"
+  - name: copiar bd remota
+    copy: src=files/mysqlbkup.sql dest=/var/lib/mysqlbkup.sql owner=root group=root mode=755
+  - name: Crear base de datos
+    shell: mysqladmin -u root -ppassword123 create MyDBTest
+  - name: Importar el backup a la bd en ejecucion
+    shell: mysql -u root -ppassword123 MyDBTest < /var/lib/mysqlbkup.sql
+    register: result
+  - debug: var=restult
+  - name: añadir backup al cron para ejecutarse todas las noches
+    cron: name="DBBackup" minute="0" job="mysqldump -u root -ppassword123 --databases MyDBTest > dbbkup.sql"
+  - name: comprobar funcionamiento
+    shell: "mysql -u root -ppassword123 -e 'SHOW DATABASES'"
+    register: result
+  - debug: var=result

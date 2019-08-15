@@ -1,0 +1,16 @@
+--- # nos da la habilidad de enviar mail 
+- hosts: apacheweb
+  remote_user: ansible
+  #become: yes
+  #become_method: sudo
+  gather_facts: yes
+  tasks:
+  - name: enviar mail desde maquina remota
+    # modulo
+    mail:
+     host: 'localhost' 
+     port: 25
+     to: ansible
+     subject: "Se ha terminado la implementacion"
+     body: "System called {{ ansible_hostname }} ha terminado correctamente"
+

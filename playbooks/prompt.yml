@@ -1,0 +1,16 @@
+--- # PROMPT PARA INSTALACION DE PAQUETES
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  vars:
+    playbook_version: 0.0.1b
+  vars_prompt:
+    - name: pkgtoinstall
+      prompt: Introduzca el paquete a instalar
+      default: telnet
+      private: no
+  tasks:
+    - name: Instalar el paquete indicado
+      yum: name={{ pkgtoinstall }} state=latest

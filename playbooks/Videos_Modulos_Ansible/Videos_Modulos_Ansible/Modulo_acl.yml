@@ -1,0 +1,13 @@
+--- # Modulo ACL
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: obtener acl del fichero
+    acl: name=/etc/acltest entity=ansible etype=user permissions="rw" state=present
+    register: aclresult
+  - debug: var=aclresult
+  - name: eliminar acl del fichero
+    acl: name=/etc/acltest entity=test etype=user state=absent

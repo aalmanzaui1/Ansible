@@ -1,0 +1,12 @@
+--- # ejecutar una vez un playbook
+- hosts: all
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Ejecutar tiempo de ejeucucion en todos los hosts y almacenar log
+    raw: /usr/bin/uptime > /home/ansible/uptime.log
+  - name: Listar el directorio /var/ y loguearlo
+    raw: ls -al /var >> /home/ansible/dir.list
+    run_once: true

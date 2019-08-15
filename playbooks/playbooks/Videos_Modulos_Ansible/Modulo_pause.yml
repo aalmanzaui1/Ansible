@@ -1,0 +1,14 @@
+--- # El modulo Pause
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Instalar_Lynx
+    yum: name=lynx state=latest
+  - name: Pausando  
+    pause: 
+      prompt: "Asegurese que la instalacion esta completa..."
+  - name: Verificar la instalacion de Lynx
+    yum: name=lynx state=present  

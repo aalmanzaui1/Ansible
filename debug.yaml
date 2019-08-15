@@ -1,0 +1,14 @@
+--- # Playbook para verificar y registras las acciones
+- hosts: centos
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: no
+  tasks: 
+  - name: Installar iftop
+    yum:
+      name: iftop
+      state: latest
+    register: result
+  - debug: var=result

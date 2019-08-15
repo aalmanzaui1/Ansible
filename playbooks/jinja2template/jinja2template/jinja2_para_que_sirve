@@ -1,0 +1,4 @@
+sirve para copiar ficheros desde un origen a un destino
+para establecer el owner el grupo y los permisos
+para sustituir variables dentro del fichero modificadas por ansible
+copiar ficheros de configuracion customizados

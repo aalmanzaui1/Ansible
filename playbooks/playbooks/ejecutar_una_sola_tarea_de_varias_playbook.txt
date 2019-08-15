@@ -1,0 +1,4 @@
+ansible-playbook startat.yml --start-at-task="nombre tarea dentro del playbook"
+o se puede pedir a ansible que pregunte si se quiere ejecutar
+
+ansible-playbook startat.yml --step

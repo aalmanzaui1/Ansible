@@ -1,0 +1,13 @@
+--- # Modulo apt repo
+- hosts: aptserver
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Instalar dependencia necesaria por apt_repository
+    apt: name=python-apt state=latest
+  - name: Aniadir apt key de google
+    apt_key: url='https://dl-ssl.google.com/linux/linux_signing_key.pub' state=present
+  - name: Aniadir reposotirio google para ubuntu
+    apt_repository: repo='deb http://dl.google.com/linux/chrome/deb/ stable main'

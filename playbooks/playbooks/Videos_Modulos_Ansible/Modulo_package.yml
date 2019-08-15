@@ -1,0 +1,10 @@
+--- # sirve para verificar que instalador de paquetes utilizar en funcion de la distribucion
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  tasks:
+  - name: Instalando paquetes
+    # modulo
+    package: name=lynx state=latest

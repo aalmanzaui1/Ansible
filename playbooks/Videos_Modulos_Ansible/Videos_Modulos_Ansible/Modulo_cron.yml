@@ -1,0 +1,11 @@
+--- # Modulo cron permite aniadir o eliminar una entrada en el cron
+- hosts: apacheweb
+  remote_user: ansible
+  #become: yes
+  #become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: introducir una entrada en el cron ansible
+    cron: name="listar directoris" minute="0" hour="1" job="ls -la /etc > /home/ansible/cronresult.log"
+  #- name: eliminar entrada cron
+  #  cron: name="listar directoris" state=absent

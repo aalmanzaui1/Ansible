@@ -1,0 +1,10 @@
+--- # modulo htpasswd
+- hosts: aptserver
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: aniadir un usuario para autenticacion web
+    # modulo
+    htpasswd: path=/etc/apache2/.htpasswd name=test2 password=primera1 owner=test2 group test2 mode=064

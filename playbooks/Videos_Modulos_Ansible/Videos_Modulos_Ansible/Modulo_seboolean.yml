@@ -1,0 +1,9 @@
+--- # El modulo seboolean permite establecer valores booleanos dependiendo lo que se desee hablando de selinux
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: establecer valor booleano para permitir o denegar cosas en selinux
+    setboolean: name=httpd_anon_write state=yes persistent=yes

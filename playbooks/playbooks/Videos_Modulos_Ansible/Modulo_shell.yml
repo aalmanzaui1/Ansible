@@ -1,0 +1,11 @@
+--- # El modulo Shell
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: ejecutar comando en host remoto
+    shell: systemctl status sshd
+    register: result
+  - debug: var=result

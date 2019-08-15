@@ -1,0 +1,11 @@
+--- # Modulo Mysql user, dar acceso a usuarios a una BD
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes 
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Dar de alta un usuario en la bd
+    #mysql_user: name=bob password=123Password?? priv=*.*:ALL state=present login_user=root login_password=$$M4mb0??
+    mysql_user: name=bob password=123password priv=*.*:ALL state=absent login_user=root login_password=$$M4mb0??
+# los password y los user deberian ir implementados en un archivo vault, eso es solo de muestra

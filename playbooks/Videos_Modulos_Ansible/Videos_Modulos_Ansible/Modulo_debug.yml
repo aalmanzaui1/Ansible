@@ -1,0 +1,12 @@
+--- # El modulo debug
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Instalar servidor web
+    yum: name=httpd state=latest
+    register: result
+  - debug: var=result
+    

@@ -1,0 +1,9 @@
+--- # modulo selinux
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Modificar selinux
+    selinux: state=disabled 

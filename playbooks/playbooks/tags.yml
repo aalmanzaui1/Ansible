@@ -1,0 +1,20 @@
+--- # tag functionality example
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+    - name: Instalar telnet y package
+      yum: name={{ item }} state=latest
+      with_items:
+        - telnet
+        - lynx
+      tags: 
+        - packages
+    - name: verificar que telnet esta instalado
+      shell: rpm -qi telnet
+      register: result
+      tags: 
+        - verificacion
+    - debug: var=result  

@@ -1,0 +1,21 @@
+- Instalar y configurar servidor NFS 
+- Instalacion y configuracion se debe hacer con el usuario ansible
+- el usuario ansible debe de tener permisos sudo
+- gatherfacts on
+- variables:
+   - tipo de distribucion del servidor
+   - nombre de los paquetes NFS
+   - ruta del espacio compartido
+- tareas:
+  - instalar NFS servidor y cliente e utilidades
+  - exportar el directorio compartido (/etc/exports)
+  - aniadir nuestra red de laboratorio (interna)
+  - configurar el export de sistema de ficheros para lectura y escrutra de redes concidas
+  - deshablitiar las redes desconocidas para conectar
+  - iniciar el servicio NFS
+  - cron para backup de archivos
+  - instalar el cliente nfs - common role
+    - configurar para que la unidad NFS se monte el en inicio de sistema
+- test:
+  - catpurar estado del servicio del servidor NFS registrando la salida
+  

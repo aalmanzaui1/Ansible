@@ -1,0 +1,14 @@
+--- # Modulo setfact
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  vars:
+    playbook_version: 0.1
+  tasks:
+  - name: mostrar variable local
+    set_fact: 
+     singlefact: algo
+  - debug: msg={{ playbook_version }} 
+  - debug: msg={{ singlefact }}

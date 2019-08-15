@@ -1,0 +1,5 @@
+ansible-vault create "nombre.yml" -- crea un fichero encriptado
+ansible-vault edit "nombre.yml" -- edita un fichero ya encriptado
+ansible-vault rekey "nombre.yml" -- edita la clave ya puesta
+ansible-vault decript "nombre.yml" -- desencripta un fichero
+ansible-vault encrypt "nombre.yml o varios" -- encripta fichero/s dado/s 

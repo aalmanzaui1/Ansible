@@ -1,0 +1,16 @@
+--- # Prueba de como funcionan las vaiables
+- hosts: '{{ myhosts }}'
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  connection: ssh
+  gather_facts: '{{ gather }}'
+  vars:
+    myhosts: centos
+    gather: yes
+    pkg: htop
+  tasks:
+  - name: Instalar el paquete indicado
+    yum: 
+      name: '{{ pkg }}'
+      state: latest

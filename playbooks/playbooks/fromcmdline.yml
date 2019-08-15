@@ -1,0 +1,9 @@
+--- # VAIABLES EN LA LINEA DE COMANDOS
+- hosts: '{{ hosts }}'
+  remote_user: '{{ user }}'
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks: 
+  - name: Instalar software solicitado
+    yum: name={{ paquete }} state=latest 

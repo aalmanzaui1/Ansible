@@ -1,0 +1,13 @@
+--- # web playbook
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  vars_files:
+  - variables/variables.yml
+  tasks:
+  - include: paquetes/paquetes.yml
+  - include: comandos/comandos.yml
+  handlers:
+  - include: handler/handler.yml

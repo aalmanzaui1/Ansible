@@ -1,0 +1,11 @@
+--- # modulo user
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: add usuario
+    user: name=almanza comment="usuario de prueba" group=wheel shell=/bin/bash 
+  #- name: Eliminar usuario
+  #  user: name=almanza state=absent remove=yes

@@ -1,0 +1,14 @@
+--- # DELEGAR FUNCIONES
+- hosts: apacheweb 
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Ejecutar un ping remoto en el servidor de aplicaciones
+    raw: ping -c 4 almanza4 > /home/ansible/ping.out
+    delegate_to: 127.0.0.1
+    register: result
+  - debug: var=result
+  - name: Instalar un paquete
+    yum: name=lynx state=latest

@@ -1,0 +1,15 @@
+--- # Implementar servidor apache
+- hosts: localhost #implementar el servidor apache con el usuario ansible
+  user: ansible # ansible necesitara permisos sudo
+  become: yes
+  become_method: sudo
+  conection: ssh # Implementar conexion ssh
+  gather_facts: yes # permitir gather facts
+  pre_tasks:
+  - name: Inicio del role
+    shell: date > /home/ansible/usescases/nfs.server.init.date
+  roles:
+  - nfs.client
+  post_tasks:
+  - name: Fin del role
+    shell: date > /home/ansible/usescases/nfs.server.end.date

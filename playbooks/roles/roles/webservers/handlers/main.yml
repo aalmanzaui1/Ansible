@@ -1,0 +1,6 @@
+- name: Reiniciar Apache-redhat
+  service: name={{ redhat_apache }} state=restarted
+  when: "ansible_os_family == 'RedHat'"
+- name: Reiniciar Apache-debian
+  service: name={{ debian_apache }} state=restarted
+  when: "ansible_os_family == 'Debian'"

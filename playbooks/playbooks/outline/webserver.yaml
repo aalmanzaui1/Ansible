@@ -1,0 +1,35 @@
+--- # Traduccion de un playbook en palabras
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no 
+  tasks:
+  - name: date/time stamp for when the playbook start
+    command: /usr/bin/date
+    register: timestamp_start
+  - debug: var=timestamp_start  
+  - name: install the apache web server
+    yum: name=httpd state=latest
+    notify: start_apache
+  - name: verify that the web service is running
+    systemd: name=httpd state=started
+    register: result
+  - debug: var=result
+  - name: install client software telnet
+    yum: name=telnet state=latest
+  - name: install client software lynx
+    yum: name=lynx state=latest
+  - name: log all the packages install on the system
+    command: yum list installed
+    register: installed_result
+  - debug: var=installed_result
+  - name: date/time stamp for when the playbook ends
+    command: /usr/bin/date
+    register: timestamp_end
+  - debug: var=timestamp_end
+  handlers:
+  - name: start_apache
+    systemd: state=restarted name=httpd
+    register: up_httpd
+  - debug: var=up_httpd

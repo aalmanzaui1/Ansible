@@ -1,0 +1,10 @@
+--- # modulo rwa sirve para ejecutar comandos sin importar el resultado
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: "nombre"
+    # modulo
+    raw: systemctl status sshd > /home/ansible/sshd-log

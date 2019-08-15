@@ -1,0 +1,13 @@
+--- # Modulo APT
+- hosts: aptserver
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Equivalente a apt-get update
+    apt: update_cache=yes
+  - name: Equivalente a apt-get upgrade
+    apt: upgrade=dist
+  - name: Instalar paquete Apache
+    apt: name=apache2 state=absent

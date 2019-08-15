@@ -1,0 +1,7 @@
+ansible apacheweb -m file -a "path=/etc/fstab" --> mostrara las caracteristicas del archivo (usuario, grupo, tamanio, tipo)
+
+ansible apacheweb -b -m file -a "path=/tmp/etc state= directory mode=0700 owner=root" --> crea un directorio con las anteriores caracteristicas
+
+ansible apacheweb -b -m copy -a "src=/etc/fstab dest=/tmp/etc/fstab" --> copia ficheros de un origen a un destino
+
+ansible apacheweb -b -m command -a "rm -rf /tmp/etc removes=/tmp/etc"

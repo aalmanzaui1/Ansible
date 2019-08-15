@@ -1,0 +1,12 @@
+--- # Modulo stat
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: verificar la existencia de un fichero/directorio
+    stat: path=/home/ansible/abc
+    register: p
+  - debug: msg="El directorio existe"
+    when: p.stat.isdir is defined and p.stat.isdir

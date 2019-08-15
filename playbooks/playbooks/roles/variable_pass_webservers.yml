@@ -1,0 +1,16 @@
+--- # Master playbook para servidores web
+- hosts: '{{ hosts }}'
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: yes
+  pre_tasks:
+  - name: hora de inicio de ejecucion del playbook
+    raw: date > /home/ansible/startofrole.log
+  roles:
+#  - webservers
+  - { role: redhat_webservers, when: "ansible_os_family == 'RedHat'" }
+  - { role: debian_webservers, when: "ansible_os_family == 'Debian'" }
+  post_tasks: 
+  - name: hora Fin del role
+    raw: date >> /home/ansible/startofrole.log

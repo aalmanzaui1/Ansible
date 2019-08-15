@@ -1,0 +1,11 @@
+--- # administrar grupos
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Administrar grupos
+    # modulo
+    group: name=nuevoadm state=present
+    # otras opciones gid=1050 system= yes or no 

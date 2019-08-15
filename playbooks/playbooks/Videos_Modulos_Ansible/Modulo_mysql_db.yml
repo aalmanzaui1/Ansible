@@ -1,0 +1,15 @@
+--- # Modulo mysql nos da la habilidad de crear o eliminar bases de datos crear o eliminar dump para backup
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks: 
+  - name: Install las librerias de python para soportar mysql
+    yum: name=MySQL-python state=latest
+  - name: Crear una nueva base de datos MyNewDB
+    mysql_db: name=MyNewDB state=present login_user=root login_password=$$M4mb0??
+# la contrasenia se debe crear con un archivo vault
+  - name: Crear backup de una base de datos
+    mysql_db: name=MyNewDB state=dump target=/var/lib/mydbtestbkup.sql login_user=root login_password=$$M4mb0??
+# se puede restaurar el backup solo cambiando el estado a restore

@@ -1,0 +1,8 @@
+- name: Instalar servidor Apache
+  yum: name={{ redhat_apache }} state=latest
+  when: "ansible_os_family == 'RedHat'"
+  notify: Reiniciar Apache-redhat
+- name:
+  apt: name={{ debian_apache }} state=latest
+  when: "ansible_os_family == 'Debian'"
+  notify: Reiniciar Apache-debian

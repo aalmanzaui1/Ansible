@@ -1,0 +1,9 @@
+--- # Modulo script
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - script: /home/ansible/com.sh
+  # El playbook ejecuta el script localizado de manera local en el host remoto

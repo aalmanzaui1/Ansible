@@ -1,0 +1,9 @@
+--- # El modulo yum
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Install apache 
+    yum: name=httpd state=installed 

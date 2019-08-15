@@ -1,0 +1,10 @@
+--- # modulo GetURL
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Obtener y descargar el INI file desde un servidor web
+    # modulo
+    get_url: url=http://almanza2.mylabserver.com/mytest.ini dest=/home/ansible/ mode=0440 

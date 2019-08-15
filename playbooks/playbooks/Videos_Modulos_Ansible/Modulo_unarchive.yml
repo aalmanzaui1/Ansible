@@ -1,0 +1,10 @@
+--- # sirve para descromprimir archivos
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: Descromprimiendo archivos
+    # el archivo origen debe estar creado de manera local el cual descomprimira el el hosts remoto con la carpeta ya creada
+    unarchive: src=/home/ansible/dsc.tar.gz dest=/home/ansible/descomprimido

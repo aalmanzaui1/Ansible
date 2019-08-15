@@ -1,0 +1,4 @@
+- name: Instalar cliente telnet
+  yum: name=telnet state=latest
+- name: Instalar lynx
+  yum: name=lynx state=latest

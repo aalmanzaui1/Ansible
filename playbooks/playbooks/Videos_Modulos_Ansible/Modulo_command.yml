@@ -1,0 +1,11 @@
+--- # el modulo Command
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+  - name: verificar python
+    command: rpm -qi python
+    register: result
+  - debug: var=result

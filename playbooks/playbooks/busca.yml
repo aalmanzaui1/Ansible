@@ -1,0 +1,8 @@
+--- # ejejmplo lookpu
+- hosts: apacheweb
+  remote_user: ansible
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:
+    - debug: msg="The atomic number of Lithium is {{ lookup('csvfile', 'Bruno file=lookup.csv delimiter=,') }}" 
